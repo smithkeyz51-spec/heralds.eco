@@ -1,0 +1,1270 @@
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Heralds — We Build Brands Into Powerful Digital Entities</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dim: #7A6030;
+    --black: #050505;
+    --dark: #0A0A0A;
+    --dark2: #111111;
+    --dark3: #161616;
+    --navy: #0C1628;
+    --white: #F5F0E8;
+    --white-dim: rgba(245,240,232,0.6);
+    --glass: rgba(255,255,255,0.04);
+    --glass-border: rgba(201,168,76,0.2);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: transform 0.1s;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(201,168,76,0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: all 0.15s ease;
+  }
+  body:hover .cursor-ring { opacity: 1; }
+
+  /* NAVBAR */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 60px;
+    background: linear-gradient(to bottom, rgba(5,5,5,0.95), transparent);
+    transition: all 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(5,5,5,0.97);
+    padding: 16px 60px;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--white);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white-dim);
+    text-decoration: none;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--gold);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--gold);
+    padding: 10px 24px;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .nav-cta:hover { background: var(--gold-light); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding: 120px 40px 80px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 20% 80%, rgba(201,168,76,0.04) 0%, transparent 60%),
+                var(--black);
+  }
+  /* Animated particles */
+  .particles { position: absolute; inset: 0; overflow: hidden; }
+  .particle {
+    position: absolute;
+    width: 1px; height: 1px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: float-up linear infinite;
+    opacity: 0;
+  }
+  @keyframes float-up {
+    0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.3; }
+    100% { transform: translateY(-100px) translateX(var(--drift)); opacity: 0; }
+  }
+  .hero-eyebrow {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 0.5s forwards;
+  }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--white-dim);
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 0.7s forwards;
+  }
+  .hero-desc {
+    font-size: 0.85rem;
+    font-weight: 300;
+    line-height: 1.9;
+    color: rgba(245,240,232,0.5);
+    max-width: 520px;
+    margin: 0 auto 56px;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 0.9s forwards;
+    letter-spacing: 0.03em;
+  }
+  .hero-btns {
+    display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 1.1s forwards;
+  }
+  .btn-primary {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--gold);
+    padding: 16px 40px;
+    text-decoration: none;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--gold-light);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  .btn-primary:hover::before { transform: translateX(0); }
+  .btn-primary span { position: relative; z-index: 1; }
+  .btn-outline {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: transparent;
+    padding: 15px 40px;
+    text-decoration: none;
+    border: 1px solid rgba(201,168,76,0.4);
+    transition: all 0.3s;
+  }
+  .btn-outline:hover { border-color: var(--gold); background: rgba(201,168,76,0.05); }
+
+  /* Scroll indicator */
+  .scroll-line {
+    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.5s forwards;
+  }
+  .scroll-line span {
+    font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold-dim);
+  }
+  .scroll-line-bar {
+    width: 1px; height: 60px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scroll-pulse 2s ease infinite;
+  }
+  @keyframes scroll-pulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(0.7); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* MARQUEE */
+  .marquee-strip {
+    border-top: 1px solid rgba(201,168,76,0.15);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    padding: 18px 0;
+    overflow: hidden;
+    background: rgba(201,168,76,0.02);
+  }
+  .marquee-track {
+    display: flex; gap: 60px;
+    animation: marquee 30s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-item {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    flex-shrink: 0;
+    display: flex; align-items: center; gap: 20px;
+  }
+  .marquee-item::after { content: '✦'; color: var(--gold); font-size: 0.5rem; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* SECTIONS */
+  section { padding: 120px 60px; }
+
+  .section-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 40px; height: 1px;
+    background: var(--gold);
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .section-body {
+    font-size: 0.85rem;
+    font-weight: 300;
+    line-height: 2;
+    color: rgba(245,240,232,0.55);
+    max-width: 600px;
+  }
+
+  /* ABOUT */
+  .about { background: var(--dark); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    align-items: center; max-width: 1200px; margin: 0 auto;
+  }
+  .about-visual {
+    position: relative;
+    height: 500px;
+  }
+  .about-card-main {
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--glass-border);
+    background: var(--glass);
+    display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+  }
+  .about-card-main::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(201,168,76,0.08), transparent 70%);
+  }
+  .horse-icon {
+    font-size: 8rem;
+    opacity: 0.12;
+    position: absolute;
+    bottom: 20px; right: 20px;
+  }
+  .about-stats {
+    position: absolute;
+    bottom: -20px; left: -20px;
+    background: var(--gold);
+    padding: 28px 32px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--black);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.6);
+  }
+  .about-card-accent {
+    position: absolute; top: -20px; right: -20px;
+    width: 120px; height: 120px;
+    border: 1px solid var(--glass-border);
+    background: var(--dark3);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .about-accent-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  /* BRANDS SECTION */
+  .brands { background: var(--black); }
+  .brands-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    max-width: 1200px; margin: 60px auto 0;
+  }
+  .brand-card {
+    position: relative;
+    padding: 60px 48px;
+    background: var(--dark2);
+    border: 1px solid transparent;
+    transition: all 0.5s ease;
+    cursor: pointer;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .brand-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  .brand-card:nth-child(1)::before { background: radial-gradient(ellipse at 50% 50%, rgba(201,168,76,0.08), transparent 70%); }
+  .brand-card:nth-child(2)::before { background: radial-gradient(ellipse at 50% 50%, rgba(12,22,40,0.5), transparent 70%); }
+  .brand-card:nth-child(3)::before { background: radial-gradient(ellipse at 50% 50%, rgba(201,168,76,0.06), transparent 70%); }
+  .brand-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-4px); }
+  .brand-card:hover::before { opacity: 1; }
+  .brand-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    font-weight: 300;
+    color: rgba(201,168,76,0.12);
+    line-height: 1;
+    margin-bottom: 32px;
+    transition: color 0.4s;
+  }
+  .brand-card:hover .brand-num { color: rgba(201,168,76,0.3); }
+  .brand-icon { font-size: 2rem; margin-bottom: 20px; }
+  .brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+  .brand-tagline {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .brand-desc {
+    font-size: 0.8rem;
+    line-height: 1.9;
+    color: rgba(245,240,232,0.4);
+    font-weight: 300;
+    margin-bottom: 32px;
+  }
+  .brand-services {
+    display: flex; flex-direction: column; gap: 8px;
+    margin-bottom: 40px;
+  }
+  .brand-service {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: rgba(245,240,232,0.5);
+    display: flex; align-items: center; gap: 10px;
+    letter-spacing: 0.05em;
+  }
+  .brand-service::before {
+    content: '';
+    width: 20px; height: 1px;
+    background: var(--gold);
+    flex-shrink: 0;
+    transition: width 0.3s;
+  }
+  .brand-card:hover .brand-service::before { width: 30px; }
+  .brand-link {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: flex; align-items: center; gap: 10px;
+    transition: gap 0.3s;
+  }
+  .brand-card:hover .brand-link { gap: 16px; }
+
+  /* SERVICES SECTION */
+  .services { background: var(--dark); }
+  .services-inner { max-width: 1200px; margin: 0 auto; }
+  .services-header {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: end;
+    margin-bottom: 80px;
+  }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  }
+  .service-item {
+    padding: 48px 36px;
+    background: var(--dark2);
+    border: 1px solid transparent;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-item::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0;
+    width: 0; height: 2px;
+    background: linear-gradient(to right, var(--gold), transparent);
+    transition: width 0.4s;
+  }
+  .service-item:hover { border-color: rgba(201,168,76,0.15); background: var(--dark3); }
+  .service-item:hover::after { width: 100%; }
+  .service-icon {
+    width: 48px; height: 48px;
+    border: 1px solid var(--glass-border);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 24px;
+    font-size: 1.2rem;
+  }
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+  .service-desc {
+    font-size: 0.75rem;
+    line-height: 1.9;
+    color: rgba(245,240,232,0.4);
+    font-weight: 300;
+  }
+
+  /* FRAMEWORK */
+  .framework { background: var(--black); }
+  .framework-inner { max-width: 1100px; margin: 0 auto; }
+  .framework-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    margin-top: 60px;
+  }
+  .fw-card {
+    padding: 60px 40px;
+    background: var(--dark2);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s;
+  }
+  .fw-card:hover { background: var(--dark3); }
+  .fw-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 6rem;
+    font-weight: 300;
+    color: rgba(201,168,76,0.06);
+    line-height: 1;
+    position: absolute;
+    top: 20px; right: 24px;
+    transition: color 0.4s;
+  }
+  .fw-card:hover .fw-number { color: rgba(201,168,76,0.12); }
+  .fw-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+  }
+  .fw-subtitle {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.35);
+    margin-bottom: 20px;
+  }
+  .fw-desc {
+    font-size: 0.78rem;
+    line-height: 1.9;
+    color: rgba(245,240,232,0.45);
+    font-weight: 300;
+  }
+
+  /* CONTACT */
+  .contact { background: var(--dark); }
+  .contact-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: start;
+  }
+  .contact-info { padding-top: 20px; }
+  .contact-detail {
+    display: flex; align-items: flex-start; gap: 20px;
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+  }
+  .contact-detail:last-child { border-bottom: none; }
+  .contact-icon {
+    width: 44px; height: 44px; flex-shrink: 0;
+    border: 1px solid var(--glass-border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    color: var(--gold);
+  }
+  .contact-label {
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 6px;
+  }
+  .contact-value {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--white-dim);
+    line-height: 1.5;
+  }
+  .contact-value a { color: inherit; text-decoration: none; transition: color 0.3s; }
+  .contact-value a:hover { color: var(--gold); }
+  .social-links {
+    display: flex; gap: 12px; margin-top: 40px;
+  }
+  .social-link {
+    width: 44px; height: 44px;
+    border: 1px solid rgba(201,168,76,0.2);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--white-dim);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: all 0.3s;
+    font-size: 1rem;
+  }
+  .social-link:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.05); }
+
+  /* FORM */
+  .contact-form {
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-label {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+  }
+  .form-input, .form-select, .form-textarea {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.15);
+    color: var(--white);
+    padding: 14px 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 100%;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--gold); }
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(245,240,232,0.2); }
+  .form-select { appearance: none; cursor: pointer; }
+  .form-select option { background: var(--dark3); }
+  .form-textarea { min-height: 120px; resize: vertical; }
+  .form-submit {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--gold);
+    border: none;
+    padding: 18px 48px;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-family: 'Montserrat', sans-serif;
+    align-self: flex-start;
+    margin-top: 8px;
+  }
+  .form-submit:hover { background: var(--gold-light); }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    border-top: 1px solid rgba(201,168,76,0.1);
+    padding: 60px 60px 40px;
+  }
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px; margin-bottom: 60px;
+  }
+  .footer-brand { }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 16px;
+    letter-spacing: 0.1em;
+  }
+  .footer-logo span { color: var(--gold); }
+  .footer-tagline {
+    font-size: 0.75rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(245,240,232,0.35);
+    max-width: 280px;
+    font-style: italic;
+  }
+  .footer-col-title {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-links a {
+    font-size: 0.78rem;
+    font-weight: 300;
+    color: rgba(245,240,232,0.4);
+    text-decoration: none;
+    transition: color 0.3s;
+    letter-spacing: 0.03em;
+  }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-bottom {
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid rgba(201,168,76,0.08);
+    padding-top: 32px;
+  }
+  .footer-copy {
+    font-size: 0.65rem;
+    font-weight: 300;
+    color: rgba(245,240,232,0.25);
+    letter-spacing: 0.05em;
+  }
+  .footer-address {
+    font-size: 0.65rem;
+    font-weight: 300;
+    color: rgba(245,240,232,0.25);
+    text-align: right;
+    line-height: 1.6;
+  }
+
+  /* DIVIDER */
+  .gold-divider {
+    width: 60px; height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 40px 0;
+  }
+
+  /* REVEAL ANIMATIONS */
+  .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-left { opacity: 0; transform: translateX(-40px); transition: all 0.8s ease; }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+  .reveal-right { opacity: 0; transform: translateX(40px); transition: all 0.8s ease; }
+  .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+  /* Stagger children */
+  .stagger > * { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+  .stagger.visible > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0s; }
+  .stagger.visible > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+  .stagger.visible > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
+  .stagger.visible > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+  .stagger.visible > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
+  .stagger.visible > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    nav.scrolled { padding: 14px 24px; }
+    .nav-links { display: none; }
+    section { padding: 80px 24px; }
+    .about-grid, .brands-grid, .services-grid, .framework-grid,
+    .contact-inner, .services-header, .footer-top, .form-row {
+      grid-template-columns: 1fr;
+    }
+    .about-visual { height: 300px; }
+    .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    .footer-address { text-align: center; }
+    footer { padding: 60px 24px 40px; }
+    .hero { padding: 100px 24px 80px; }
+  }
+
+  /* Notification */
+  .notification {
+    position: fixed; bottom: 30px; right: 30px;
+    background: var(--gold);
+    color: var(--black);
+    padding: 16px 24px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    z-index: 9000;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.4s ease;
+  }
+  .notification.show { transform: translateY(0); opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Notification -->
+<div class="notification" id="notification">✦ Message received. We'll be in touch.</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">THE <span>HERALDS</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#brands">Ecosystem</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#framework">Framework</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Work With Us</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="particles" id="particles"></div>
+
+  <p class="hero-eyebrow">Lagos, Nigeria · Est. 2026</p>
+  <h1 class="hero-title">The <em>Heralds</em></h1>
+  <p class="hero-subtitle">We Build Brands Into Powerful Digital Entities</p>
+  <p class="hero-desc">A visionary media-tech ecosystem that transforms attention into influence, influence into assets, and assets into lasting wealth.</p>
+  <div class="hero-btns">
+    <a href="#brands" class="btn-primary"><span>Explore the Ecosystem</span></a>
+    <a href="#contact" class="btn-outline">Partner With Us</a>
+  </div>
+
+  <div class="scroll-line">
+    <span>Scroll</span>
+    <div class="scroll-line-bar"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track" id="marqueeTrack">
+    <span class="marquee-item">Social Media Marketing</span>
+    <span class="marquee-item">Brand Strategy</span>
+    <span class="marquee-item">Real Estate Solutions</span>
+    <span class="marquee-item">Premium Shortlets</span>
+    <span class="marquee-item">Luxury Automobiles</span>
+    <span class="marquee-item">Content Creation</span>
+    <span class="marquee-item">Community Building</span>
+    <span class="marquee-item">Digital Dominance</span>
+    <span class="marquee-item">Investment Models</span>
+    <span class="marquee-item">Social Media Marketing</span>
+    <span class="marquee-item">Brand Strategy</span>
+    <span class="marquee-item">Real Estate Solutions</span>
+    <span class="marquee-item">Premium Shortlets</span>
+    <span class="marquee-item">Luxury Automobiles</span>
+    <span class="marquee-item">Content Creation</span>
+    <span class="marquee-item">Community Building</span>
+    <span class="marquee-item">Digital Dominance</span>
+    <span class="marquee-item">Investment Models</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-visual reveal-left">
+      <div class="about-card-main">
+        <div class="horse-icon">🐎</div>
+        <div style="position:relative;z-index:1;text-align:center;padding:40px;">
+          <p style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:var(--white);line-height:1.2;font-style:italic;">"Attention is<br>the engine.<br><span style='color:var(--gold)'>Assets are<br>the outcome.</span>"</p>
+        </div>
+      </div>
+      <div class="about-stats">
+        <span class="stat-num">3</span>
+        <span class="stat-label">Brands Under One Ecosystem</span>
+      </div>
+      <div class="about-card-accent">
+        <div class="about-accent-text">Lagos<br>Nigeria<br>——<br>Global<br>Vision</div>
+      </div>
+    </div>
+    <div class="about-content reveal-right">
+      <div class="section-label">Who We Are</div>
+      <h2 class="section-title">A Growth Partner,<br><em>Not Just</em> an Agency</h2>
+      <div class="gold-divider"></div>
+      <p class="section-body" style="margin-bottom:20px;">The Heralds is a strategic social media marketing agency evolving into a growth and asset-building firm. We don't just manage feeds — we shape brand narratives that transform digital presence into growth, loyalty, and conversions.</p>
+      <p class="section-body" style="margin-bottom:40px;">Our mission: elevate brands into recognized, influential digital entities through thoughtful strategy, bespoke branding, measurable marketing, and community-driven engagement.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;" class="stagger">
+        <div style="padding:24px;border:1px solid rgba(201,168,76,0.1);">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);font-weight:600;">Mission</div>
+          <div style="font-size:0.75rem;color:var(--white-dim);font-weight:300;line-height:1.7;margin-top:8px;">Elevate brands into recognized digital entities through strategy and community.</div>
+        </div>
+        <div style="padding:24px;border:1px solid rgba(201,168,76,0.1);">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);font-weight:600;">Vision</div>
+          <div style="font-size:0.75rem;color:var(--white-dim);font-weight:300;line-height:1.7;margin-top:8px;">To be Africa's most trusted modern brand growth ecosystem.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section class="brands" id="brands">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="reveal">
+      <div class="section-label">The Ecosystem</div>
+      <h2 class="section-title">Three Brands,<br><em>One Vision</em></h2>
+    </div>
+    <div class="brands-grid stagger">
+
+      <!-- HERALDS MEDIA -->
+      <a class="brand-card" href="#" onclick="return false;">
+        <div class="brand-num">01</div>
+        <div class="brand-icon">🐎</div>
+        <div class="brand-tagline">Social Media Marketing Agency</div>
+        <div class="brand-name">The Heralds</div>
+        <p class="brand-desc">We build brands into powerful digital entities that influence, engage, and drive measurable results. Strategy-first, community-driven, results-obsessed.</p>
+        <div class="brand-services">
+          <div class="brand-service">Social Media Strategy & Management</div>
+          <div class="brand-service">Brand Identity & Visual Branding</div>
+          <div class="brand-service">Paid Social Advertising</div>
+          <div class="brand-service">Community Building</div>
+          <div class="brand-service">Analytics & Reporting</div>
+        </div>
+        <div class="brand-link">Explore Brand →</div>
+      </a>
+
+      <!-- HERALDS MERIDIAN -->
+      <a class="brand-card" href="#" onclick="return false;" style="background:var(--navy);">
+        <div class="brand-num" style="color:rgba(201,168,76,0.15);">02</div>
+        <div class="brand-icon"></div>
+        <div class="brand-tagline">Premium Real Estate & Property</div>
+        <div class="brand-name">Heralds Meridian</div>
+        <p class="brand-desc">Premium property solutions, verified listings, and shortlet accommodations built on trust, structure, and client-centered service across Nigeria.</p>
+        <div class="brand-services">
+          <div class="brand-service">Verified Property Listings</div>
+          <div class="brand-service">Premium Shortlet Booking</div>
+          <div class="brand-service">Property Inspection Assistance</div>
+          <div class="brand-service">Real Estate Consultation</div>
+          <div class="brand-service">Property Partner Network</div>
+        </div>
+        <div class="brand-link">Explore Brand →</div>
+      </a>
+
+      <!-- HERALDS AUTOS -->
+      <a class="brand-card" href="#" onclick="return false;">
+        <div class="brand-num">03</div>
+        <div class="brand-icon"></div>
+        <div class="brand-tagline">Luxury Automobile Experience</div>
+        <div class="brand-name">Heralds Autos</div>
+        <p class="brand-desc">Your Ride, Your Pride. A curated luxury automobile experience connecting discerning buyers to premium vehicles with unmatched service and expertise.</p>
+        <div class="brand-services">
+          <div class="brand-service">Luxury Vehicle Acquisition</div>
+          <div class="brand-service">Car Inspection & Verification</div>
+          <div class="brand-service">Auto Financing Guidance</div>
+          <div class="brand-service">Trade-In Solutions</div>
+          <div class="brand-service">Concierge Auto Service</div>
+        </div>
+        <div class="brand-link">Explore Brand →</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-inner">
+    <div class="services-header">
+      <div class="reveal-left">
+        <div class="section-label">What We Do</div>
+        <h2 class="section-title">Services Built<br>for <em>Growth</em></h2>
+      </div>
+      <div class="reveal-right">
+        <p class="section-body">Every service we offer is engineered to drive measurable outcomes. We don't sell posts — we build demand engines.</p>
+      </div>
+    </div>
+    <div class="services-grid stagger">
+      <div class="service-item">
+        <div class="service-icon"></div>
+        <div class="service-name">Social Media Strategy</div>
+        <p class="service-desc">Custom strategies built around your brand's unique goals, audience, and competitive landscape. No templates. No guesswork.</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon"></div>
+        <div class="service-name">Brand Identity</div>
+        <p class="service-desc">Visual identity, brand voice, and positioning that make your brand instantly recognizable and deeply memorable across every platform.</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon"></div>
+        <div class="service-name">Content Creation</div>
+        <p class="service-desc">High-quality photos, videos, and copy crafted to capture attention, sustain it, and direct it with intention. No filler, no randomness.</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon"></div>
+        <div class="service-name">Paid Advertising</div>
+        <p class="service-desc">Targeted ad campaigns on Facebook, Instagram, and beyond — precision-targeted, data-optimized, and ROI-driven.</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon"></div>
+        <div class="service-name">Property Solutions</div>
+        <p class="service-desc">Verified listings, premium shortlets, and end-to-end property support for individuals, families, and investors across Lagos.</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon"></div>
+        <div class="service-name">Auto Acquisition</div>
+        <p class="service-desc">Luxury and quality automobile sourcing, inspection, and transaction support for buyers who demand the best.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FRAMEWORK -->
+<section class="framework" id="framework">
+  <div class="framework-inner">
+    <div class="reveal" style="text-align:center;max-width:600px;margin:0 auto 20px;">
+      <div class="section-label" style="justify-content:center;">Our Proprietary Method</div>
+      <h2 class="section-title">The Heralds<br><em>Framework</em></h2>
+      <p style="font-size:0.8rem;line-height:1.9;color:rgba(245,240,232,0.45);font-weight:300;margin-top:20px;">Three systems that power everything we do. Three approaches to building brands that last.</p>
+    </div>
+    <div class="framework-grid stagger">
+      <div class="fw-card">
+        <div class="fw-number">I</div>
+        <div class="fw-title">Mona Lisa</div>
+        <div class="fw-subtitle">The Timeless System</div>
+        <p class="fw-desc">Builds sustainable brands on quality, vision, and adaptability. We don't follow fleeting trends — we create brands that stay relevant and respected across generations. Like the masterpiece itself.</p>
+      </div>
+      <div class="fw-card">
+        <div class="fw-number">II</div>
+        <div class="fw-title">Eagle</div>
+        <div class="fw-subtitle">The Elevation System</div>
+        <p class="fw-desc">Takes a bird's-eye view of your industry, studying top performers to adapt their best practices. We transform your brand into a premium offering that stands above the competition.</p>
+      </div>
+      <div class="fw-card">
+        <div class="fw-number">III</div>
+        <div class="fw-title">Sniper</div>
+        <div class="fw-subtitle">The Precision System</div>
+        <p class="fw-desc">Targeted precision on the specific pain points that hold your brand back. One issue at a time, maximum impact, continuous refinement. Measure, adapt, scale the winners.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-info reveal-left">
+      <div class="section-label">Let's Connect</div>
+      <h2 class="section-title">Ready to Build<br><em>Something</em><br>Powerful?</h2>
+      <div class="gold-divider"></div>
+      <p class="section-body" style="margin-bottom:48px;">Whether you're a brand looking to dominate digitally, a property buyer seeking trusted guidance, or someone who wants to drive premium — The Heralds ecosystem is your partner.</p>
+
+      <div class="contact-detail">
+        <div class="contact-icon"></div>
+        <div>
+          <div class="contact-label">Phone / WhatsApp</div>
+          <div class="contact-value"><a href="tel:+2349060443436">+234 906 044 3436</a></div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon"></div>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-value"><a href="mailto:heraldsglobal@gmail.com">heraldsglobal@gmail.com</a></div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon"></div>
+        <div>
+          <div class="contact-label">Address</div>
+          <div class="contact-value">Creek Haven Estate, Opp Harris-Drive<br>VGC Ajah, Lagos, Nigeria</div>
+        </div>
+      </div>
+      <div class="contact-detail" style="border:none;">
+        <div class="contact-icon"></div>
+        <div>
+          <div class="contact-label">Website</div>
+          <div class="contact-value"><a href="https://www.heralds.com" target="_blank">www.heralds.com</a></div>
+        </div>
+      </div>
+
+      <div class="social-links">
+        <a href="https://www.instagram.com/the_heraldsmedia" target="_blank" class="social-link">
+    <i class="fab fa-instagram"></i>
+</a>
+
+<a href="https://www.instagram.com/heralds_global" target="_blank" class="social-link">
+    <i class="fab fa-instagram"></i>
+</a>
+
+<a href="https://www.tiktok.com/@theheraldsmeridian" target="_blank" class="social-link">
+    <i class="fab fa-tiktok"></i>
+</a>
+
+<a href="#" target="_blank" class="social-link">
+    <i class="fab fa-x-twitter"></i>
+</a>
+
+<a href="#" target="_blank" class="social-link">
+    <i class="fab fa-facebook-f"></i>
+</a>
+      </div>
+    </div>
+
+    <div class="reveal-right">
+      <div style="background:var(--dark3);padding:48px;border:1px solid rgba(201,168,76,0.1);">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--white);margin-bottom:8px;">Send Us a Message</div>
+        <p style="font-size:0.75rem;color:var(--white-dim);font-weight:300;margin-bottom:32px;">Tell us about your brand and goals. We respond within 24 hours.</p>
+        <div class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">First Name</label>
+              <input class="form-input" type="text" placeholder="John">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last Name</label>
+              <input class="form-input" type="text" placeholder="Doe">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input class="form-input" type="email" placeholder="john@brand.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone / WhatsApp</label>
+            <input class="form-input" type="tel" placeholder="+234 000 000 0000">
+          </div>
+          <div class="form-group">
+            <label class="form-label">I'm Interested In</label>
+            <select class="form-select form-input">
+              <option value="">Select a service...</option>
+              <option>Social Media Marketing</option>
+              <option>Brand Strategy & Identity</option>
+              <option>Content Creation</option>
+              <option>Real Estate (Heralds Meridian)</option>
+              <option>Automobile (Heralds Autos)</option>
+              <option>Partnership / Investment</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Your Message</label>
+            <textarea class="form-textarea" placeholder="Tell us about your brand, goals, or inquiry..."></textarea>
+          </div>
+          <button class="form-submit" id="submitBtn" onclick="handleSubmit()">Send Message ✦</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">THE <span>HERALDS</span></div>
+      <p class="footer-tagline">"We build brands into powerful digital entities that influence, engage, and drive results."</p>
+      <div style="margin-top:24px;display:flex;gap:10px;">
+        <a href="https://www.instagram.com/the_heraldsmedia" target="_blank" class="social-link" style="width:36px;height:36px;font-size:0.8rem;">📷</a>
+        <a href="https://www.tiktok.com/@theheraldsmeridian" target="_blank" class="social-link" style="width:36px;height:36px;font-size:0.8rem;">🎵</a>
+        <a href="#" class="social-link" style="width:36px;height:36px;font-size:0.75rem;font-weight:800;">𝕏</a>
+        <a href="#" class="social-link" style="width:36px;height:36px;font-size:0.75rem;font-weight:700;">f</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Ecosystem</div>
+      <ul class="footer-links">
+        <li><a href="#">The Heralds</a></li>
+        <li><a href="#">Heralds Meridian</a></li>
+        <li><a href="#">Heralds Autos</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="#">Brand Strategy</a></li>
+        <li><a href="#">Social Media</a></li>
+        <li><a href="#">Content Creation</a></li>
+        <li><a href="#">Property Solutions</a></li>
+        <li><a href="#">Auto Acquisition</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Framework</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Join The Team</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2024 The Heralds Global. All rights reserved. Lagos, Nigeria.</div>
+    <div class="footer-address">Creek Haven Estate, Opp Harris-Drive<br>VGC Ajah, Lagos, NG · heraldsglobal@gmail.com</div>
+  </div>
+</footer>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx+'px'; cursor.style.top = my+'px'; });
+  function animRing() {
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    cursorRing.style.left = rx+'px'; cursorRing.style.top = ry+'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+  document.querySelectorAll('a, button, .brand-card, .service-item').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursorRing.style.transform = 'translate(-50%,-50%) scale(1.8)'; cursorRing.style.borderColor = 'rgba(201,168,76,0.8)'; });
+    el.addEventListener('mouseleave', () => { cursorRing.style.transform = 'translate(-50%,-50%) scale(1)'; cursorRing.style.borderColor = 'rgba(201,168,76,0.5)'; });
+  });
+
+  // Navbar scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Particles
+  const pContainer = document.getElementById('particles');
+  for (let i = 0; i < 40; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.cssText = `
+      left: ${Math.random()*100}%;
+      width: ${Math.random()*2+1}px;
+      height: ${Math.random()*2+1}px;
+      animation-duration: ${Math.random()*15+10}s;
+      animation-delay: ${Math.random()*10}s;
+      --drift: ${(Math.random()-0.5)*200}px;
+    `;
+    pContainer.appendChild(p);
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger').forEach(el => observer.observe(el));
+
+  // Form submit
+  function handleSubmit() {
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Sending...';
+    btn.style.opacity = '0.7';
+    setTimeout(() => {
+      btn.textContent = 'Message Sent ✓';
+      btn.style.background = '#2d7a4f';
+      btn.style.color = 'white';
+      const notif = document.getElementById('notification');
+      notif.classList.add('show');
+      setTimeout(() => notif.classList.remove('show'), 4000);
+    }, 1200);
+  }
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+
+</body>
+</html>
